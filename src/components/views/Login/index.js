@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, ActivityIndicator } from 'react-native';
 import Logo from './logo';
-import { getOrientation, setOrientationListener, removeOrientationListener } from '../../../utils/misc';
+import { getOrientation, setOrientationListener, setTokens, removeOrientationListener, getToken } from '../../../utils/misc';
 import LoginPanel from './loginPanel';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { autoSignIn } from '../../../store/actions/user_actions';
 
-export default class Login extends Component {
+class Login extends Component {
     static navigationOptions = {
         header: null
     }
@@ -12,6 +15,7 @@ export default class Login extends Component {
         super(props)
 
         this.state = {
+            loading: true,
             orientation: getOrientation(500),
             logoAnimation: false
         }
@@ -34,7 +38,31 @@ export default class Login extends Component {
     goNext = () => {
         this.props.navigation.navigate('App')
     }
+    componentDidMount() {
+        getToken((value) => {
+            if (value[0][1] === null) {
+                this.setState({ loading: false })
+            } else {
+                this.props.autoSignIn(value[1][1]).then(() => {
+                    if (!this.props.User.userData.token) {
+                        this.setState({ loading: false })
+                    } else {
+                        setTokens(this.props.User.userData, () => {
+                            this.goNext()
+                        })
+                    }
+                })
+            }
+        })
+    }
     render() {
+        if (this.state.loading) {
+            return (
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <ActivityIndicator />
+                </View>
+            )
+        }
         return (
             <ScrollView>
                 <View style={styles.container}>
@@ -60,3 +88,14 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     }
 })
+
+const mapStateToProps = state => {
+    return {
+        User: state.User
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({ autoSignIn }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

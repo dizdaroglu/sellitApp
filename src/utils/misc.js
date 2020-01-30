@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, AsyncStorage } from 'react-native';
 
 export const getOrientation = (value) => {
     console.log("Dimension height: ", Dimensions.get('window').height)
@@ -11,4 +11,30 @@ export const setOrientationListener = (cb) => {
 
 export const removeOrientationListener = () => {
     return Dimensions.removeEventListener("change")
+}
+
+export const getToken = (cb) => {
+    AsyncStorage.multiGet([
+        '@sellitApp@token',
+        '@sellitApp@refreshToken',
+        '@sellitApp@expireToken',
+        '@sellitApp@uid',
+    ]).then(value => {
+        cb(value)
+    })
+}
+export const setTokens = (values, cb) => {
+    console.log("Values", values)
+    const dateNow = new Date();
+    const expiration = dateNow.getTime() + (3600 * 1000);
+
+    AsyncStorage.multiSet([
+        ['@sellitApp@token', values.token],
+        ['@sellitApp@refreshToken', values.refToken],
+        ['@sellitApp@expireToken', expiration.toString()],
+        ['@sellitApp@uid', values.uid],
+    ]).then(res => {
+        cb();
+    })
+
 }

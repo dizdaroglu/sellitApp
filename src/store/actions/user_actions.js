@@ -24,3 +24,23 @@ export const signUp = (data) => {
         payload: request
     }
 }
+
+export const signIn = (data) => {
+    const authData = {
+        email: data.email,
+        password: data.password,
+        returnSecureToken: true
+    }
+
+    const request = axios.post(SIGNIN, authData)
+        .then(res => {
+            return res.data
+        })
+        .catch(error => {
+            return false
+        })
+    return {
+        type: types.SIGN_USER,
+        payload: request
+    }
+}

@@ -17,11 +17,23 @@ const registerUser = (state, action) => {
         }
     })
 }
+const signUser = (state, action) => {
+    return updatedObject(state, {
+        userData: {
+            uid: action.payload.localId || false,
+            token: action.payload.idToken || false,
+            refToken: action.payload.refreshToken || false
+
+        }
+    })
+}
 
 export default (state = initialState, action) => {
     switch (action.type) {
         case types.REGISTER_USER:
             return registerUser(state, action);
+        case types.SIGN_USER:
+            return signUser(state, action);
 
         default:
             return state;

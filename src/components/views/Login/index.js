@@ -31,6 +31,9 @@ export default class Login extends Component {
             logoAnimation: true
         })
     }
+    goNext = () => {
+        this.props.navigation.navigate('App')
+    }
     render() {
         return (
             <ScrollView>
@@ -42,6 +45,7 @@ export default class Login extends Component {
                     <LoginPanel
                         orientation={this.state.orientation}
                         show={this.state.logoAnimation}
+                        goNext={this.goNext}
                     />
                 </View>
             </ScrollView>

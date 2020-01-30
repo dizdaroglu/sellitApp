@@ -50,7 +50,7 @@ export default class LoginPanel extends Component {
                         outputRange: [100, 30]
                     })
                 }}>
-                    <LoginForm />
+                    <LoginForm goNext={this.props.goNext} />
 
                 </Animated.View>
             </View>

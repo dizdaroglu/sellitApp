@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import Input from '../../../utils/forms/input';
 import ValidationRules from '../../../utils/forms/validationRules';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { signUp } from '../../../store/actions/user_actions';
 
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
 
     state = {
         type: "Login",
@@ -105,7 +108,13 @@ export default class LoginForm extends Component {
             }
         }
         if (isFormValid) {
-            console.log(formToSubmit)
+            if (this.state.type === 'Login') {
+
+            } else {
+                this.props.signUp(formToSubmit).then(() => {
+                    console.log("success!!")
+                })
+            }
         } else {
             this.setState({
                 hasError: true
@@ -170,3 +179,12 @@ const styles = StyleSheet.create({
         fontFamily: 'Roboto-Black'
     }
 })
+const mapStateToprops = state => {
+    return {
+        User: state.User
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({ signUp }, dispatch)
+}
+export default connect(mapStateToprops, mapDispatchToProps)(LoginForm)

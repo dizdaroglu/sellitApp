@@ -1,18 +1,37 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
+
+import HorizontalScroll from './horizontal_scrol_icon';
+
 
 export default class Home extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
+    state = {
+        categories: ['All', 'Sports', 'Music', 'Clothing', 'Electronics'],
+        categorySelected: 'All'
     }
 
+    updateCategoryHandler = (value) => {
+        this.setState({
+            categorySelected: value
+        })
+    }
     render() {
         return (
-            <View>
-                <Text> index </Text>
-            </View>
+            <ScrollView>
+                <View style={styles.container}>
+                    <HorizontalScroll
+                        categories={this.state.categories}
+                        categorySelected={this.state.categorySelected}
+                        updateCategoryHandler={this.updateCategoryHandler}
+                    />
+                </View>
+            </ScrollView>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        marginTop: 5
+    }
+})

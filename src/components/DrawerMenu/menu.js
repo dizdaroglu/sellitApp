@@ -12,9 +12,9 @@ export default class DrawerMenu extends Component {
         return (
             <TouchableOpacity onPress={this.toggle} style={{ paddingHorizontal: 10 }}>
                 <Ionicons
-                    name="ios-menu"
+                    name="md-menu"
                     size={30}
-                    color="red"
+                    color="white"
                 />
             </TouchableOpacity>
         )

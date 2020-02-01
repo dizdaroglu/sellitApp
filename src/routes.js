@@ -50,7 +50,7 @@ const AddPostStack = createStackNavigator({
         screen: AddPost,
         navigationOptions: ({ navigation }) => ({
             headerLeft: <Menu navigation={navigation} />,
-            headerTitle: 'Add   "Post'
+            headerTitle: 'Sell it'
         })
     }
 }, headerConfig)
@@ -65,6 +65,7 @@ const AppStack = createBottomTabNavigator({
             tabBarIcon: ({ tintColor }) => {
                 return <Ionicons name="ios-search" size={24} color={tintColor} />
             }
+
         }
     },
     AddPost: {
@@ -72,7 +73,9 @@ const AppStack = createBottomTabNavigator({
         navigationOptions: {
             tabBarIcon: ({ tintColor }) => {
                 return <Ionicons name="logo-usd" size={24} color={tintColor} />
-            }
+            },
+            tabBarLabel: "Sell it"
+
         }
     }
 },

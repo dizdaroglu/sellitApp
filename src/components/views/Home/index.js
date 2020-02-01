@@ -41,12 +41,28 @@ class Home extends Component {
             })
         })
     }
+    goArticleHandler = (props) => {
+        this.props.navigation.navigate('Article', {
+            passProps: {
+                ArticleData: props
+            },
+            backButtonTitle: 'Back to home',
+            navStyle: {
+                navBarTextFontSize: 20,
+                navBarTextColor: '#ffffff',
+                navBarTextFontFamily: 'RobotoCondensed-Bold',
+                navBarBackgroundColor: '#00ADA9',
+                screenBackgroundColor: '#ffffff'
+            }
+        })
+    }
     showArticles = () => (
         this.state.articles.map((item, i) => (
             <BlockItem
                 key={`columnHome-${i}`}
                 item={item}
                 iteration={i}
+                goto={this.goArticleHandler}
             />
         ))
     )

@@ -4,6 +4,7 @@ import { View, Text } from 'react-native';
 
 import Login from './components/views/Login';
 import Home from './components/views/Home';
+import Article from './components/views/Article';
 import AddPost from './components/views/Admin/AddPost';
 import Menu from './components/DrawerMenu/menu';
 import SideDrawer from './components/SideDrawer';
@@ -38,6 +39,9 @@ const HomeStack = createStackNavigator({
             headerLeft: <Menu navigation={navigation} />,
             headerTitle: 'Home'
         })
+    },
+    Article: {
+        screen: Article,
     }
 }, headerConfig)
 

@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import NotAllow from './notallow';
 import Input from '../../../../utils/forms/input';
 import ValidationRules from '../../../../utils/forms/validationRules';
+import { bindActionCreators } from 'redux';
+import { addArticle, resetArticle } from '../../../../store/actions/articles_actions';
+import { autoSignIn } from '../../../../store/actions/user_actions';
+import { setTokens, getToken } from '../../../../utils/misc';
 
 class AddPost extends Component {
 
@@ -102,9 +106,30 @@ class AddPost extends Component {
             dataToSubmit[key] = this.state.form[key].value;
         }
         if (isFormValid) {
-            console.log(dataToSubmit)
             this.setState({
-                modalSuccess: true
+                loading: true
+            })
+            getToken((value) => {
+                const dateNow = new Date();
+                const expiration = dateNow.getTime();
+                const form = {
+                    ...dataToSubmit,
+                    uid: value[3][1]
+                }
+
+                if (expiration > value[2][1]) {
+                    this.props.autoSignIn(value[1][1]).then(() => {
+                        setTokens(this.props.User.userData, () => {
+                            this.props.addArticle(form, this.props.User.userData.token).then(() => {
+                                this.setState({ modalSuccess: true })
+                            })
+                        })
+                    })
+                } else {
+                    this.props.addArticle(form, value[0][1]).then(() => {
+                        this.setState({ modalSuccess: true })
+                    })
+                }
             })
         } else {
             let errorsArray = [];
@@ -148,7 +173,7 @@ class AddPost extends Component {
             errorsArray: [],
             loading: false
         })
-
+        this.props.resetArticle()
     }
     render() {
         console.log(this.props.User)
@@ -313,7 +338,11 @@ const styles = StyleSheet.create({
 })
 const mapStateToProps = state => {
     return {
+        Article: state.Article,
         User: state.User
     }
 }
-export default connect(mapStateToProps)(AddPost)
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({ addArticle, autoSignIn, resetArticle }, dispatch)
+}
+export default connect(mapStateToProps, mapDispatchToProps)(AddPost)

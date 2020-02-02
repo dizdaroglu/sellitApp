@@ -26,7 +26,7 @@ export const getToken = (cb) => {
 export const setTokens = (values, cb) => {
     console.log("Values", values)
     const dateNow = new Date();
-    const expiration = dateNow.getTime() + (3600 * 1000);
+    const expiration = dateNow.getTime() + (1 * 1000);
 
     AsyncStorage.multiSet([
         ['@sellitApp@token', values.token],

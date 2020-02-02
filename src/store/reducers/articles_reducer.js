@@ -8,7 +8,16 @@ export default (state = {}, action) => {
                 ...state,
                 list: action.payload
             }
-
+        case types.ADD_ARTICLES:
+            return {
+                ...state,
+                newArticle: action.payload
+            }
+        case types.RESET_ARTICLE:
+            return {
+                ...state,
+                newArticle: action.payload
+            }
         default:
             return state;
     }

@@ -29,3 +29,26 @@ export const getArticles = (category) => {
         payload: request
     }
 }
+
+export const addArticle = (data, token) => {
+
+    const request = axios.post(`/articles.json?auth=${token}`, data)
+        .then(res => {
+            return res.data
+        })
+        .catch(error => {
+            return false
+        })
+
+    return {
+        type: types.ADD_ARTICLES,
+        payload: request
+    }
+}
+
+export const resetArticle = () => {
+    return {
+        type: types.RESET_ARTICLE,
+        payload: ""
+    }
+}

@@ -44,6 +44,17 @@ export default (state = initialState, action) => {
             return signUser(state, action);
         case types.AUTO_SIGN_IN:
             return autoSignIn(state, action);
+
+        case types.GET_USER_POST:
+            return {
+                ...state,
+                userPosts: action.payload
+            }
+        case types.DELETE_USER_POST:
+            return {
+                ...state,
+                ...action.payload
+            }
         default:
             return state;
     }

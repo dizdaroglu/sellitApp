@@ -6,6 +6,7 @@ import Login from './components/views/Login';
 import Home from './components/views/Home';
 import Article from './components/views/Article';
 import AddPost from './components/views/Admin/AddPost';
+import UserPost from './components/views/Admin/UserPosts';
 import Menu from './components/DrawerMenu/menu';
 import SideDrawer from './components/SideDrawer';
 
@@ -42,7 +43,7 @@ const HomeStack = createStackNavigator({
     },
     Article: {
         screen: Article,
-    }
+    },
 }, headerConfig)
 
 const AddPostStack = createStackNavigator({
@@ -94,10 +95,12 @@ const ModalStack = createStackNavigator({
         headerMode: 'screen',
 
     })
-
+const UserPostStack = createStackNavigator({
+    UserPost: UserPost
+}, headerConfig)
 const AppDrawer = createDrawerNavigator({
     App: AppStack,
-    Modal: ModalStack
+    UserPost: UserPostStack
 }, {
     contentComponent: SideDrawer,
 })

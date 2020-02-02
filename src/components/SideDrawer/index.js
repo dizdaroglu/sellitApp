@@ -26,7 +26,7 @@ class SideDrawer extends Component {
                     style={styles.menuItem}
                     onPress={
                         () =>
-                            this.props.navigation.navigate('Modal')}>
+                            this.props.navigation.navigate('UserPost')}>
                     <Ionicons name="md-list" size={18} color="white" style={styles.icon} />
                     <Text style={styles.itemText}>My Post</Text>
                 </TouchableOpacity>

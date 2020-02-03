@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, ScrollView, Image } from 'react-native';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Logo from '../../assets/images/playstore-icon.png';
 
 
 class SideDrawer extends Component {
@@ -37,7 +38,10 @@ class SideDrawer extends Component {
 
             <View style={styles.container}>
                 <View style={styles.upperContainer}>
-                    <Text>LOGO</Text>
+                    <Image
+                        source={Logo}
+                        style={{ width: 150, height: 150 }}
+                    />
                 </View>
                 <ScrollView style={styles.content}>
                     <TouchableOpacity style={styles.menuItem} onPress={() => this.navigationScreen("Home")}>
@@ -63,7 +67,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: '#474143',
+        backgroundColor: '#00ADA9',
         paddingVertical: 40
     },
     menuItem: {

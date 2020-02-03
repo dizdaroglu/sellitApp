@@ -11,6 +11,7 @@ export const getArticles = (category) => {
     const request = axios.get(URL)
         .then(res => {
             const articles = [];
+            console.log("clothing: ", res.data)
 
             for (let key in res.data) {
                 articles.push({
@@ -23,7 +24,7 @@ export const getArticles = (category) => {
         .catch(error => {
             return false
         })
-
+    console.log("Request: ", request)
     return {
         type: types.GET_ARTICLES,
         payload: request

@@ -8,6 +8,7 @@ import Article from './components/views/Article';
 import AddPost from './components/views/Admin/AddPost';
 import UserPost from './components/views/Admin/UserPosts';
 import Menu from './components/DrawerMenu/menu';
+import Splash from './components/views/Splash';
 import SideDrawer from './components/SideDrawer';
 
 import Modal from './components/MyModal/myModal';
@@ -43,8 +44,11 @@ const HomeStack = createStackNavigator({
     },
     Article: {
         screen: Article,
-    },
-}, headerConfig)
+    }
+},
+    headerConfig,
+
+)
 
 const AddPostStack = createStackNavigator({
     AddPost: {
@@ -107,8 +111,9 @@ const AppDrawer = createDrawerNavigator({
 
 export default createAppContainer(createSwitchNavigator({
     App: AppDrawer,
-    Auth: AuthStack
+    Auth: AuthStack,
+    Splash: Splash
 },
     {
-        initialRouteName: 'Auth'
+        initialRouteName: 'Splash'
     }))

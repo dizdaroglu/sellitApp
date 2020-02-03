@@ -29,6 +29,7 @@ class Home extends Component {
                 loading: false,
                 articles: newArticles
             })
+            console.log("newArticles:=>>>> ", newArticles)
         })
     }
     componentDidMount() {
@@ -39,6 +40,7 @@ class Home extends Component {
                 loading: false,
                 articles: newArticles
             })
+
         })
     }
     goArticleHandler = (props) => {
@@ -113,6 +115,7 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => {
+    console.log("state, ", state.Article.list)
     return {
         Article: state.Article
     }

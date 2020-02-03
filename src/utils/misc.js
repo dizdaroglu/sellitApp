@@ -46,6 +46,8 @@ export const gridTwoColumns = (list) => {
     let vessel = {};
     let articles = list;
 
+    console.log("element ", articles.length)
+
     if (articles) {
         articles.forEach(element => {
             if (count == 1) {
